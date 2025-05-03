@@ -9,7 +9,7 @@ function uploadArquivos() {
     formData.append("file", file);
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://127.0.0.1:3000/arquivos", true);
+    xhr.open("POST", "https://dropzone-3mmi.onrender.com", true);
     xhr.onload = function() {
         console.log(xhr.responseText);
     }
