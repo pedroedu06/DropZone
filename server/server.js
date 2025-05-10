@@ -7,7 +7,6 @@ const fs = require("fs")
 const app = express();
 const port = process.env.PORT || 3000;  
 
-app.use('/arquivos',express.static(path.join(__dirname, 'arquivos')));
 app.use(cors());
 app.use(express.static("interface"));
 app.use(cors({origin: "*"}));
@@ -50,6 +49,15 @@ app.post("/arquivos", upload.single("file"), (req, res) => {
         return res.status(400).send("nenhum arquivo enviado")
     }
     res.send("arquivo recebido com sucesso!"); 
+});
+
+app.get("/arquivos/:filename", (req, res) => {
+    const filePath = path.join(__dirname, 'arquivos', req.params.filename);
+    if (fs.existsSync(filePath)) {
+      res.sendFile(filePath);
+    } else {
+      res.status(404).send("Arquivo não encontrado.");
+    }
 });
 
 app.listen(3000, () => console.log("Servidor rodando porta 3000"));
