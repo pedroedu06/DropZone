@@ -9,7 +9,7 @@ function uploadArquivos() {
     formData.append("file", file);
 
     let xhr = new XMLHttpRequest();
-    xhr.open("POST", "https://dropzone-1nwz.onrender.com", true);
+    xhr.open("POST", "http://127.0.0.1:3000/upload", true);
     xhr.onload = function() {
         console.log(xhr.responseText);
     }
@@ -22,8 +22,6 @@ xhr.onload = function (event) {
         document.querySelector('#progress').style.widht = percent + "%";
     }
 };
-
-
 
 xhr.onload = function() {
     

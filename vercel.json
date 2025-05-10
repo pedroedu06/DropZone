@@ -1,0 +1,18 @@
+{ 
+    "version": 2,
+    "builds": [
+        {
+        "src": "server/server.js",
+        "use": "@vercel/node",
+        "config": {
+            "distDir": "dist"
+        }
+        }
+    ],
+    "routes": [
+        {
+        "src": "/(.*)",
+        "dest": "/scripts/scripts.js"
+        }
+    ]
+}
