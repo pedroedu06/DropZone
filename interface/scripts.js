@@ -1,37 +1,37 @@
 function uploadArquivos() {
-    let file = document.querySelector('#file').files[0];
+    const file = document.querySelector('#file').files[0];
 
-    if (!file){
-        alert("coloque um arquivo");
+    if (!file) {
+        alert("Coloque um arquivo");
+        return;
     }
 
-    let formData = new FormData();
+    const formData = new FormData();
     formData.append("file", file);
 
-    let xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://127.0.0.1:3000/upload", true);
-    xhr.onload = function() {
+    const xhr = new XMLHttpRequest();
+
+    // Troque o endpoint se estiver no Render:
+    xhr.open("POST", "https://dropzone-4gpl.onrender.com/arquivos", true);
+
+    // Progress bar (onprogress, não onload!)
+    xhr.upload.onprogress = function (event) {
+        if (event.lengthComputable) {
+            const percent = (event.loaded / event.total) * 100;
+            document.querySelector('#progress').style.width = percent + "%";
+        }
+    };
+
+    // Status final
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            document.querySelector('#status').innerHTML = "Upload concluído!";
+        } else {
+            document.querySelector('#status').innerHTML = "Erro no upload.";
+        }
+
         console.log(xhr.responseText);
-    }
+    };
+
     xhr.send(formData);
-
-
-xhr.onload = function (event) {
-    if (event.lenghtComputable) {
-        let percent = (event.loaded / event.total) * 100;
-        document.querySelector('#progress').style.widht = percent + "%";
-    }
-};
-
-xhr.onload = function() {
-    
-    if (xhr.status){
-        document.querySelector('#status').innerHTML = "Upload concluido";
-    } else {
-        document.querySelector('#status').innerHTML = "Erro no upload";
-    }
-};
-
-xhr.send(formData);
-
 }

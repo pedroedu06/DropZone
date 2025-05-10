@@ -13,18 +13,10 @@
 <body>
     <div class="conteiner">
         <h2>Coloque seus arquivos aqui:</h2>
-        <form action="http://localhost:3000/arquivos" method="post" enctype="multipart/form-data">
+        <form action="https://dropzone-4gpl.onrender.com/arquivos" method="post" enctype="multipart/form-data">
         <input type="file" name="file" id="file">
         <button onclick="uploadArquivos()">Enviar</button>
     </form>     
-        <div id="progressBar">
-            <div id="progress"></div>
-        </div>
-
-        <div class="status">
-            <p id="status"></p>
-        </div>
-
     </div>
 </body>
 <scripts src="scripts.js"></script>
