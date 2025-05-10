@@ -10,6 +10,7 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.static("interface"));
 app.use(cors({origin: "*"}));
+app.use("/arquivos", express.static(uploadDir));
 
 const uploadDir = path.join(__dirname, "arquivos");
 
@@ -28,6 +29,19 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({storage: storage});
+
+app.get("/buscar", (req, res) => {
+    fs.readdir(uploadDir, (err, files) => {
+        if (err) {
+            return res.status(500).send("Erro ao ler o diretório");
+        }
+        const fileList = files.map(file => ({
+            name: file,
+            url: `http://localhost:${port}/arquivos/${file}`
+        }));
+        res.json(fileList);
+    });
+});
 
 app.post("/arquivos", upload.single("file"), (req, res) => {
     if(!req.file){
