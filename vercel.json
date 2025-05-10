@@ -12,7 +12,7 @@
     "routes": [
         {
         "src": "/(.*)",
-        "dest": "/scripts/scripts.js"
+        "dest": "index.html"
         }
     ]
 }
