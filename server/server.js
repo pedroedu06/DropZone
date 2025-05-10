@@ -10,7 +10,7 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.static("interface"));
 app.use(cors({origin: "*"}));
-app.use("/arquivos", express.static(uploadDir));
+
 
 const uploadDir = path.join(__dirname, "arquivos");
 
@@ -29,6 +29,7 @@ const storage = multer.diskStorage({
 });
 
 const upload = multer({storage: storage});
+app.use("/arquivos", express.static(uploadDir));
 
 app.get("/buscar", (req, res) => {
     fs.readdir(uploadDir, (err, files) => {
