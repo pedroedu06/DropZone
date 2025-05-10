@@ -29,7 +29,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage: storage});
 app.use("/arquivos", express.static(uploadDir));
-const baseUrl = req.protocol + '://' + req.get('host');
+
 
 app.get("/buscar", (req, res) => {
     fs.readdir(uploadDir, (err, files) => {
@@ -38,7 +38,7 @@ app.get("/buscar", (req, res) => {
         }
         const fileList = files.map(file => ({
             name: file,
-            url: `${baseUrl}/arquivos/${file}`
+            url: `http://localhost:${port}/arquivos/${file}`
           }));
         res.json(fileList);
     });
