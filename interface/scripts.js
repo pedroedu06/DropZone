@@ -11,10 +11,8 @@ function uploadArquivos() {
 
     const xhr = new XMLHttpRequest();
 
-    // Troque o endpoint se estiver no Render:
     xhr.open("POST", "https://dropzone-4gpl.onrender.com/arquivos", true);
 
-    // Progress bar (onprogress, não onload!)
     xhr.upload.onprogress = function (event) {
         if (event.lengthComputable) {
             const percent = (event.loaded / event.total) * 100;
@@ -22,7 +20,6 @@ function uploadArquivos() {
         }
     };
 
-    // Status final
     xhr.onload = function () {
         if (xhr.status === 200) {
             document.querySelector('#status').innerHTML = "Upload concluído!";
